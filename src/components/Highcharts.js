@@ -49,7 +49,10 @@ class HiChart extends Component {
             if (this.isFirst || this.isLast) return ''
             return moment.utc(this.value).format('HH:mm')
           }
-        }
+        },
+        plotLines:[{
+          value: (new Date()).getTime()-((new Date()).getTimezoneOffset()*60*1000)
+        }]
       },
       yAxis: {
         crosshair: false,
