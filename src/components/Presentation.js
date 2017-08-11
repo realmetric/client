@@ -86,20 +86,20 @@ export const Metric = styled.li`
   border-radius: 1px;
   background: #d9dde3;
 
-  > div:nth-child(1) {
-    position: relative;
-    padding: 8px 10px 8px 12px;
-    background: #b2b9c2;
-    color: #4a525e;
-    transition: all .3s ease-out;
-  }
+  // > div:nth-child(1) {
+  //   position: relative;
+  //   padding: 8px 10px 8px 12px;
+  //   background: #b2b9c2;
+  //   color: #4a525e;
+  //   transition: all .3s ease-out;
+  // }
   &.active > div:nth-child(1) {
-    background: #4a525e;
-    color: #ced3d9;
+    background: #acb0b7;
+    color: #000;
     transition: all .1s ease-in;
   }
-  > div:nth-child(2) {
-    padding: 8px;
+  > div:nth-child(1) {
+    padding: 10px 10px 10px 13px;
     color: #485261;
     background-color: #d9dde3;
     overflow: hidden;
@@ -107,10 +107,10 @@ export const Metric = styled.li`
     flex: 1;
     transition: all 0.15s;
   }
-  &:hover > div:nth-child(2) {
-    background-color: #cbd0d8;
-    transition: all 0.15s;
-  }
+  // &:hover > div:nth-child(1) {
+  //   background-color: #cbd0d8;
+  //   transition: all 0.15s;
+  // }
 `
 
 const bgs = [
@@ -129,9 +129,9 @@ const fgs = [
 ]
 
 export const Total = styled.div`
-  padding: 8px 12px 8px 10px;
+  padding: 10px 8px 10px 5px;
   font-weight: 500;
-  min-width: 78px;
+  min-width: 72px;
   text-align: right;
   border-left: 1px solid #e2e5e9;
   background-color: ${props =>

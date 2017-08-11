@@ -14,7 +14,7 @@ class MetricBox extends Component {
         className={active ? 'active' : ''}
         onClick={onClick}
       >
-        <div>{category}</div>
+        {/*<div>{category}</div>*/}
         <div>{name}</div>
         {total &&
           <Total diff={diff} title={diff && diff.toFixed(2) + '%'}>
