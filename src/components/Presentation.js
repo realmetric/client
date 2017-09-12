@@ -32,7 +32,7 @@ export const Categories = styled.ul`
 `
 export const Category = styled.li`
   list-style: none;
-  margin: 30px;
+  margin: 0 15px;
   &:first-child {
     margin-top: 0;
   }
@@ -43,7 +43,7 @@ export const Category = styled.li`
   }
 `
 export const H4 = styled.h4`
-  padding: 0;
+  padding: 15px 0 0 0;
   margin: 0;
   color: #697586;
   font-size: 18px;
@@ -56,22 +56,13 @@ export const H4 = styled.h4`
     z-index: 1;
     padding-right: 7px;
   }
-  &:before {
-    content: "";
-    background: #bfcdd9;
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 50%;
-    height: 1px;
-  }
 `
 export const CategoryTitle = ({id, children}) =>
   <H4 id={id}><span>{children}</span></H4>
 
 export const MetricsList = styled.ul`
   flex: 1;
-  padding: 30px 0 0;
+  padding: 15px 0 0;
   margin: 0 -10px;
   overflow: auto;
 `
@@ -164,29 +155,21 @@ export const Head = styled.header`
   z-index: 5;
 `
 export const Nav = styled.nav`
-  position: absolute;
+  width: 135px;
   display: flex;
-  top: 0;
-  bottom: 0;
-  left: -30px;
-  z-index: 5;
-  width: 200px;
-  background-color: rgba(236, 239, 243, 0.92);
-  transform: translateX(-500px);
-  transition: all 0.22s ease-in;
-  padding-top: 40px;
-  box-shadow: 0px 0px 2px 0px rgba(87, 103, 117, 0.75);
+  border-left: 1px solid #bfcdd9;
+  border-right: 1px solid #bfcdd9;
   ul {
     flex: 1;
     overflow: auto;
-    margin: 0 0 0 50px;
+    margin: 0 0 0 0;
     padding: 0;
   }
   li {
     list-style: none;
     a {
       display: block;
-      padding: 5px 0 5px 10px;
+      padding: 7px 10px;
       color: #404040;
       text-decoration: none;
       &:hover {
@@ -218,4 +201,13 @@ export const Label = styled.label`
   margin-bottom: 3px;
   color: #ecf0f1;
   letter-spacing: 0.5px;
+`
+export const HBox = styled.div`
+  display: flex;
+  flex: 1;
+  @media (max-width: ${maxWidth}) {
+    &.slices {
+      flex-direction: row-reverse;
+    }
+  }
 `

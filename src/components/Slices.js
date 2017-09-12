@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import * as actions from '../actions'
 import {getSlicesList} from '../reducers/slices'
 import Spinner from './Spinner'
-import {Section, Categories} from './Presentation'
+import {Section, Categories, Nav, HBox} from './Presentation'
 import Category from './Category'
 import BurgerMenu from './BurgerMenu'
 
@@ -35,21 +35,29 @@ class Slices extends Component {
 
     return (
       <Section>
-        <BurgerMenu categories={categories} />
         {pending && <Spinner />}
         {!pending && categories.length > 0 &&
-          <Categories>
-            {categories.map(cat =>
-              <Category
-                key={cat}
-                category={cat}
-                categoryItems={slices[cat]}
-                itemFormatter={this.itemFormatter}
-                categoryItemId={sliceId}
-                onMetricClick={this.onSliceClick}
-              />
-            )}
-          </Categories>
+          <HBox className="slices">
+            <Categories>
+              {categories.map(cat =>
+                <Category
+                  key={cat}
+                  category={cat}
+                  categoryItems={slices[cat]}
+                  itemFormatter={this.itemFormatter}
+                  categoryItemId={sliceId}
+                  onMetricClick={this.onSliceClick}
+                />
+              )}
+            </Categories>
+            <Nav>
+              <ul>{categories.map(cat =>
+                <li key={cat}>
+                  <a href={`#${cat}`} onClick={this.handleCategoryClick}>{cat}</a>
+                </li>)}
+              </ul>
+            </Nav>
+          </HBox>
         }
       </Section>
     )
