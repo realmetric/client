@@ -25,6 +25,7 @@ export function metric(state = {
 
 export function metrics(state = {
   byCategory: {},
+  popularCats: {},
   pending: false
 }, action) {
 
@@ -39,6 +40,20 @@ export function metrics(state = {
 
     case 'METRICS_ERROR':
       return {...state, pending: false}
+
+    case 'POPULAR_CATS_SUCCESS':
+      return {
+        ...state, popularCats: action.popularCats
+      }
+
+    case 'CATEGORY_CLICK':
+      return {
+        ...state,
+        popularCats: {
+          ...state.popularCats,
+          [action.category]: (state.popularCats[action.category] || 0) + 1
+        }
+      }
 
     default:
       return state

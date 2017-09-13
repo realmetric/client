@@ -93,11 +93,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if (this.props.api) this.props.fetchMetrics()
+    if (this.props.api) {
+      this.props.fetchPopularCats(this.props.api)
+      this.props.fetchMetrics()
+    }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.api !== this.props.api) this.props.fetchMetrics()
+    if (prevProps.api !== this.props.api)  {
+      this.props.fetchPopularCats(this.props.api)
+      this.props.fetchMetrics()
+    }
   }
 
   handleSubmitApiUrl = (e) => {
@@ -107,20 +113,25 @@ class App extends Component {
     this.props.setApi(api)
   }
 
+  // TODO: create proper auth
   handleLogin = (e) => {
     e.preventDefault()
     if (this.props.api) {
       const login = findDOMNode(this.loginInput).value
       const pwrd = findDOMNode(this.pwInput).value
-      localStorage.setItem(this.props.api, login + ':' + pwrd)
+      const storage = JSON.parse(localStorage.getItem(this.props.api)) || {}
+      localStorage.setItem(this.props.api, JSON.stringify({...storage, auth: login + ':' + pwrd}))
       this.forceUpdate()
     }
   }
 
   render() {
     const {api, metricId, sliceId} = this.props
-
-    const isSavedPwrd = localStorage.getItem(api)
+    const storage = localStorage.getItem(api)
+    let isSavedPwrd
+    try {
+      isSavedPwrd = storage && JSON.parse(storage).auth
+    } catch (e) {}
 
     return api
       ? (isSavedPwrd

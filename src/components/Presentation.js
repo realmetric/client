@@ -32,7 +32,7 @@ export const Categories = styled.ul`
 `
 export const Category = styled.li`
   list-style: none;
-  margin: 0 15px;
+  margin: 0 20px;
   &:first-child {
     margin-top: 0;
   }
@@ -159,6 +159,14 @@ export const Nav = styled.nav`
   display: flex;
   border-left: 1px solid #bfcdd9;
   border-right: 1px solid #bfcdd9;
+
+  .popularItems {
+    flex: initial;
+    padding-bottom: 7px;
+    margin-bottom: 3px;
+    border-bottom: 1px solid #bfcdd9;
+  }
+
   ul {
     flex: 1;
     overflow: auto;
@@ -169,7 +177,7 @@ export const Nav = styled.nav`
     list-style: none;
     a {
       display: block;
-      padding: 7px 10px;
+      padding: 7px 15px;
       color: #404040;
       text-decoration: none;
       &:hover {

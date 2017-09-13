@@ -3,7 +3,14 @@ import {combineEpics} from 'redux-observable'
 import {ajax} from 'rxjs/observable/dom/ajax'
 import {Observable} from 'rxjs'
 
-const creds = (api) => window.btoa(localStorage.getItem(api))
+const creds = (api) => {
+  const storage = localStorage.getItem(api)
+  let auth = ''
+  try {
+    auth = storage && JSON.parse(storage).auth
+  } catch (e) {}
+  return window.btoa(auth)
+}
 
 const fetchMetric = (action$, store) =>
   action$.ofType('METRIC_REQUEST')

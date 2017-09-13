@@ -19,4 +19,22 @@ ReactDOM.render(
   document.getElementById('root')
 )
 
+window.onbeforeunload = () => {
+  const {api, metrics} = store.getState()
+  let storage = {}
+
+  try {
+    storage = JSON.parse(localStorage.getItem(api))
+  } catch (e) {}
+
+  if (api) {
+    localStorage.setItem(
+      api,
+      JSON.stringify({
+        ...storage, popularCats: metrics.popularCats
+      })
+    )
+  }
+}
+
 registerServiceWorker()

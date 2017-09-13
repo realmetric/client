@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import * as actions from '../actions'
 import {getSlicesList} from '../reducers/slices'
 import Spinner from './Spinner'
-import {Section, Categories, Nav, HBox} from './Presentation'
+import {Section, Categories, Nav, NoData, HBox} from './Presentation'
 import Category from './Category'
 import BurgerMenu from './BurgerMenu'
 
@@ -29,6 +29,14 @@ class Slices extends Component {
 
   itemFormatter = (item) => item
 
+  handleCategoryClick = (e) => {
+    e.preventDefault()
+    const category = e.target.href.match(/(#.*)$/)[1].slice(1)
+    document.querySelector('#_' + category).scrollIntoView({
+      behavior: 'smooth'
+    })
+  }
+
   render() {
     const {slices, sliceId, pending} = this.props
     const categories = Object.keys(slices)
@@ -36,28 +44,31 @@ class Slices extends Component {
     return (
       <Section>
         {pending && <Spinner />}
-        {!pending && categories.length > 0 &&
-          <HBox className="slices">
-            <Categories>
-              {categories.map(cat =>
-                <Category
-                  key={cat}
-                  category={cat}
-                  categoryItems={slices[cat]}
-                  itemFormatter={this.itemFormatter}
-                  categoryItemId={sliceId}
-                  onMetricClick={this.onSliceClick}
-                />
-              )}
-            </Categories>
-            <Nav>
-              <ul>{categories.map(cat =>
-                <li key={cat}>
-                  <a href={`#${cat}`} onClick={this.handleCategoryClick}>{cat}</a>
-                </li>)}
-              </ul>
-            </Nav>
-          </HBox>
+        {!pending &&
+          (categories.length > 0
+            ? <HBox className="slices">
+                <Categories>
+                  {categories.map(cat =>
+                    <Category
+                      key={cat}
+                      category={cat}
+                      categoryItems={slices[cat]}
+                      itemFormatter={this.itemFormatter}
+                      categoryItemId={sliceId}
+                      onMetricClick={this.onSliceClick}
+                    />
+                  )}
+                </Categories>
+                <Nav>
+                  <ul>{categories.map(cat =>
+                    <li key={cat}>
+                      <a href={`#${cat}`} onClick={this.handleCategoryClick}>{cat}</a>
+                    </li>)}
+                  </ul>
+                </Nav>
+              </HBox>
+            : <NoData>no data</NoData>
+          )
         }
       </Section>
     )

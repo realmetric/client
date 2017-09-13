@@ -23,3 +23,14 @@ export const fetchSlice = ({metric_id, slice_id, interval = 'm', from, to}) =>
   ({type: 'SLICE_REQUEST', metric_id, slice_id, interval, from, to})
 
 export const loadInitialData = () => ({type: 'LOAD_INITIAL_DATA'})
+
+export const categoryClick = (category) => ({type: 'CATEGORY_CLICK', category})
+
+export const fetchPopularCats = (api) => (dispatch, getState) => {
+  try {
+    const storage = JSON.parse(localStorage.getItem(api))
+    dispatch({type: 'POPULAR_CATS_SUCCESS', popularCats: storage.popularCats})
+  } catch (e) {
+    dispatch({type: 'POPULAR_CATS_ERROR'})
+  }
+}

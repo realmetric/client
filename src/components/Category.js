@@ -10,7 +10,7 @@ class MetricCategory extends Component {
 
     return (
       <Category>
-        <CategoryTitle id={category}>{category}</CategoryTitle>
+        <CategoryTitle id={'_' + category}>{category}</CategoryTitle>
         <MetricsList>
           {categoryItems.map(item =>
             <MetricBox
