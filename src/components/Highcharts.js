@@ -8,43 +8,34 @@ import moment from 'moment'
 class HiChart extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.ts === this.props.ts) return
-    const {data} = this.props
-
-    // console.log('series', data.series)
+    const {data: {series}} = this.props
+    if (!series) return
+    const xs0 = series[0].data.reduce((xs, point) => [...xs, point[1]], [])
+    const xs1 = series[1].data.reduce((xs, point) => [...xs, point[1]], [])
+    const xs = [...xs0, ...xs1]
+    const max = Math.max(...xs)
 
     this.chart = window.Highcharts.chart('plot', {
       chart: {
         type: 'column',
-        margin: [0, -6, 23, -6],
-        zoomType: 'x',
-        panning: true,
-        panKey: 'shift',
-        events: {
-          load() {
-            // var points = []
-            // this.series.forEach(function (entry) {
-            //     entry.data.forEach(function (theData) {
-            //         points.push(theData.y);
-            //     });
-            // });
-            // this.yAxis[0].update({
-            //   max: this.yAxis[0].getExtremes().dataMax
-            // })
-          },
-
-        }
+        margin: [-1, -5, 21, 0],
+        zoomType: 'xy'
       },
       title: null,
       xAxis: {
         crosshair: true,
         type: 'datetime',
-        tickLength: 5,
+        tickLength: 4,
+        startOnTick: true,
+        minPadding: 0,
+        endOnTick: true,
+        maxPadding: 0,
         labels: {
           style: {
             color: '#80868e',
             font: '10px Roboto, sans-serif',
           },
-          y: 16,
+          y: 15,
           formatter() {
             if (this.isFirst || this.isLast) return ''
             return moment.utc(this.value).format('HH:mm')
@@ -58,6 +49,8 @@ class HiChart extends Component {
         crosshair: false,
         min: 0,
         title: null,
+        startOnTick: false,
+        endOnTick: false,
         labels: {
           enabled:false
         }
@@ -92,9 +85,10 @@ class HiChart extends Component {
         },
         stickyTracking: false
       },
-      series: data.series
+      series
     })
 
+    this.chart.yAxis[0].setExtremes(0, max)
   }
 
   componentWillUnmount() {

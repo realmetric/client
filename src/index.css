@@ -78,12 +78,12 @@ input:-webkit-autofill {
     display: none;
 }
 .highcharts-column-series.yesterday rect.highcharts-point {
-    stroke: rgba(0, 0, 0, 0.03);
+    stroke: hsla(210, 10%, 81%, 1);
     fill: rgba(154, 162, 172, 0.45);
 }
 .highcharts-column-series.today rect.highcharts-point {
-    stroke: rgba(25, 117, 210, 0.2);
-    fill: rgba(0, 79, 168, 0.54);
+    stroke: hsla(212, 49%, 56%, 0.48);
+    fill: rgba(0, 79, 168, 0.53);
 }
 .highcharts-tooltip {
     filter: initial !important;
