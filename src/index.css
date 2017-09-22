@@ -20,59 +20,6 @@ input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px #fff inset;
     transition: background-color 5000s ease-in-out 0s;
 }
-/*
-.react-tabs {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-.react-tabs__tab-list {
-    z-index: 5;
-    border-bottom: 1px solid #bfcdd9;
-    box-shadow: 0 4px 3px -3px rgba(0, 0, 0, 0.05);
-    margin: 0 -1px;
-    padding: 0;
-    color: #4d6880;
-    font-weight: 300;
-}
-.react-tabs__tab {
-    display: inline-block;
-    border-bottom: 2px solid transparent;
-    position: relative;
-    bottom: -1px;
-    list-style: none;
-    padding: 10px 1px 13px;
-    margin-right: 19px;
-    cursor: pointer;
-}
-.react-tabs__tab--selected {
-    border-bottom: 2px solid #3976c6;
-    color: #232d34;
-}
-.react-tabs__tab-panel {
-    flex: 1;
-    display: none;
-}
-.react-tabs__tab-panel--selected {
-    display: flex;
-}
-.react-tabs__tab--disabled {
-    color: GrayText;
-    cursor: default;
-}
-.react-tabs__tab:focus {
-    outline: none;
-}
-.react-tabs__tab:focus:after {
-    content: "";
-    position: absolute;
-    height: 5px;
-    left: -4px;
-    right: -4px;
-    bottom: -5px;
-    background: #fff;
-}
-*/
 
 .highcharts-credits {
     display: none;
@@ -122,5 +69,7 @@ input:-webkit-autofill {
 .highcharts-crosshair-thin {
     stroke-width: 1px;
     stroke: #aaa;
-    /*stroke-dasharray: 2;*/
+}
+.highcharts-yaxis-grid .highcharts-grid-line {
+    display: none;
 }

@@ -31,10 +31,6 @@ class HiChart extends Component {
         endOnTick: true,
         maxPadding: 0,
         labels: {
-          style: {
-            color: '#80868e',
-            font: '10px Roboto, sans-serif',
-          },
           y: 15,
           formatter() {
             if (this.isFirst || this.isLast) return ''
@@ -69,10 +65,6 @@ class HiChart extends Component {
             y: 0.2 * this.chart.plotHeight
           }
         },
-        // headerFormat: '<span>{point.key}</span><table>',
-        // pointFormat: '<tr><td style="padding:0;"><span class={series.className}></span>{series.name}: </td>' +
-        //     '<td style="padding:0"><b>{point.y}</b></td></tr>',
-        // footerFormat: '</table>',
         shared: true,
         useHTML: true,
         shadow: false
@@ -89,12 +81,6 @@ class HiChart extends Component {
     })
 
     this.chart.yAxis[0].setExtremes(0, max)
-  }
-
-  componentWillUnmount() {
-    // const node = window.document.getElementById('plot')
-    // if (node.parentNode) node.parentNode.removeChild(node)
-
   }
 
   render() {

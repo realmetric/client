@@ -5,7 +5,6 @@ import {getSlicesList} from '../reducers/slices'
 import Spinner from './Spinner'
 import {Section, Categories, Nav, NoData, HBox} from './Presentation'
 import Category from './Category'
-import BurgerMenu from './BurgerMenu'
 
 class Slices extends Component {
   componentDidMount() {

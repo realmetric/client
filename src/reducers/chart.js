@@ -5,7 +5,8 @@ import {getSliceChart} from './slices'
 function chart(state = {
   ts: 0,
   metricId: null,
-  sliceId: null
+  sliceId: null,
+  period: '1D'
 }, action) {
 
   switch (action.type) {
@@ -35,6 +36,9 @@ function chart(state = {
     case 'METRIC_ERROR':
       return {...state, metricId: null}
 
+    case 'PERIOD_UPDATE':
+      return {...state, period: action.period}
+
     default:
       return state
   }
@@ -60,3 +64,26 @@ export const isChartPending = ({chart: {metricId, sliceId}, slice, metric}) =>
     : existy(metricId)
       ? metric.pending
       : false
+
+export const getMetricName = ({chart, metrics}) => {
+  const {metricId} = chart
+  return (
+    Object.values(metrics.byCategory)
+      .reduce((flat, next) => [...flat, ...next], [])
+      .find(metric => metric.id === metricId) || {name: ''}
+  ).name
+}
+
+export const getSliceName = ({chart, slices}) => {
+  const {metricId, sliceId} = chart
+  if (!existy(metricId) || !existy(sliceId)) return ''
+
+  const slice = Object.keys(slices.byCategory)
+    .reduce((flat, next) => [
+      ...flat,
+      ...slices.byCategory[next].map(slice => ({...slice, category: next}))
+    ], [])
+    .find(slice => slice.id === sliceId)
+
+  return slice ? slice.category + ':' + slice.name : ''
+}

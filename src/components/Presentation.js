@@ -33,9 +33,11 @@ export const Categories = styled.ul`
 export const Category = styled.li`
   list-style: none;
   margin: 0 20px;
+
   &:first-child {
     margin-top: 0;
   }
+
   @media (max-width: ${maxWidth}) {
     & {
       margin: 15px;
@@ -50,6 +52,7 @@ export const H4 = styled.h4`
   font-weight: 300;
   text-transform: uppercase;
   position: relative;
+
   > span {
     position: relative;
     background: #eceff3;
@@ -77,13 +80,6 @@ export const Metric = styled.li`
   border-radius: 1px;
   background: #d9dde3;
 
-  // > div:nth-child(1) {
-  //   position: relative;
-  //   padding: 8px 10px 8px 12px;
-  //   background: #b2b9c2;
-  //   color: #4a525e;
-  //   transition: all .3s ease-out;
-  // }
   &.active > div:nth-child(1) {
     background: #acb0b7;
     color: #000;
@@ -98,10 +94,6 @@ export const Metric = styled.li`
     flex: 1;
     transition: all 0.15s;
   }
-  // &:hover > div:nth-child(1) {
-  //   background-color: #cbd0d8;
-  //   transition: all 0.15s;
-  // }
 `
 
 const bgs = [

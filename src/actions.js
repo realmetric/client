@@ -34,3 +34,5 @@ export const fetchPopularCats = (api) => (dispatch, getState) => {
     dispatch({type: 'POPULAR_CATS_ERROR'})
   }
 }
+
+export const updatePeriod = (period) => ({type: 'PERIOD_UPDATE', period})

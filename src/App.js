@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {findDOMNode} from 'react-dom'
 import {connect} from 'react-redux'
 import * as actions from './actions'
+import Toolbar from './components/Toolbar'
 import Chart from './components/Chart'
 import Metrics from './components/Metrics'
 import Slices from './components/Slices'
@@ -17,8 +18,8 @@ const Application = styled.div`
 `
 const Reports = styled.div`
   display: flex;
-  flex: 0 0 70%;
-  max-height: 70%;
+  flex: 0 0 65%;
+  max-height: 65%;
   border-top: 1px solid #bfcdd9;
 
   @media (max-width: ${maxWidth}) {
@@ -136,6 +137,7 @@ class App extends Component {
     return api
       ? (isSavedPwrd
         ? <Application>
+            <Toolbar />
             <Chart />
             <Reports>
               <Metrics metricId={metricId} sliceId={sliceId} />
@@ -148,10 +150,10 @@ class App extends Component {
                 <form onSubmit={this.handleLogin}>
                   <ApiTitle>{api.replace(/^https?:\/\//, '')}</ApiTitle>
                   <Label for="login">Your login</Label>
-                  <Input ref={r => this.loginInput = r} id="login" name="login" type="text" />
+                  <Input ref={r => this.loginInput = r} id="login" name="login" type="text" autoCapitalize="none" />
                   <br /><br />
                   <Label for="pwrd">Your password</Label>
-                  <Input ref={r => this.pwInput = r} id="pwrd" name="pwrd" type="password" />
+                  <Input ref={r => this.pwInput = r} id="pwrd" name="pwrd" type="password" autoCapitalize="none" />
                   <input type="submit" value="Go" />
                 </form>
               </ApiPrompt>
@@ -163,7 +165,7 @@ class App extends Component {
             <ApiPrompt>
               <form onSubmit={this.handleSubmitApiUrl}>
                 <Label for="api">Your API url</Label>
-                <Input ref={r => this.apiInput = r} id="api" name="api" type="text" />
+                <Input ref={r => this.apiInput = r} id="api" name="api" type="text" autoCapitalize="none" />
               </form>
             </ApiPrompt>
           </ApiPromptWrapper>

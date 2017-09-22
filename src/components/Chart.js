@@ -8,7 +8,7 @@ import Spinner from './Spinner'
 import styled from 'styled-components'
 
 const ChartSection = styled.section`
-  flex: 0 0 30%;
+  flex: 0 0 calc(35% - 30px);
   position: relative;
   background-color: #fafbfd;
   padding: 0;

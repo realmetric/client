@@ -5,7 +5,6 @@ import {getMetricsList} from '../reducers/metrics'
 import Spinner from './Spinner'
 import {Section, Categories, Nav, NoData, HBox} from './Presentation'
 import Category from './Category'
-import BurgerMenu from './BurgerMenu'
 
 class Metrics extends Component {
   componentDidMount() {
@@ -47,7 +46,7 @@ class Metrics extends Component {
   renderPopularCats() {
     const {popularCats} = this.props
     return (
-      Object.keys(popularCats).length > 0
+      popularCats && Object.keys(popularCats).length > 0
         ? <ul className="popularItems">
             {Object.keys(popularCats).sort((a, b) => popularCats[b] - popularCats[a]).slice(0, 6).map(cat =>
               <li key={cat}>
