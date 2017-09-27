@@ -23,15 +23,16 @@ class Metrics extends Component {
       fetchMetric, resetChart, resetMetric, resetSlice
     } = this.props
 
+    if (metric_id === metricId) {
+      resetMetric()
+      resetSlice()
+      resetChart()
+      fetchMetrics()
+      return
+    }
+
     if (metric_id && sliceId) {
-      if (metric_id === metricId) {
-        resetMetric()
-        resetSlice()
-        resetChart()
-        fetchMetrics()
-      } else {
-        fetchSlice(metric_id, sliceId)
-      }
+      fetchSlice(metric_id, sliceId)
     } else {
       fetchMetric(metric_id)
     }

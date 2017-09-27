@@ -48,22 +48,13 @@ const action4Period = (action, period) => {
 export const fetchMetric = (metricId) => (dispatch, getState) => {
   const {period, intervalType} = getState().chart
   const action = {type: 'METRIC_REQUEST', intervalType, metricId}
-  if (getState().chart.metricId === metricId) {
-    dispatch(resetMetric())
-    dispatch(resetSlice())
-  } else {
-    dispatch(action4Period(action, period))
-  }
+  dispatch(action4Period(action, period))
 }
 
 export const fetchSlice = (metric_id, slice_id) => (dispatch, getState) => {
   const {period, intervalType} = getState().chart
   const action = {type: 'SLICE_REQUEST', intervalType, metric_id, slice_id}
-  if (getState().chart.sliceId === slice_id) {
-    dispatch(resetSlice())
-  } else {
-    dispatch(action4Period(action, period))
-  }
+  dispatch(action4Period(action, period))
 }
 
 export const fetchMetrics = ({slice_id} = {}) => ({type: 'METRICS_REQUEST', slice_id})

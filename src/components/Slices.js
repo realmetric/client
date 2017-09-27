@@ -22,7 +22,13 @@ class Slices extends Component {
   }
 
   onSliceClick = (slice_id) => {
-    const {metricId, fetchMetrics, fetchSlice} = this.props
+    const {metricId, sliceId, fetchMetrics, fetchSlice, resetSlice} = this.props
+
+    if (slice_id === sliceId) {
+      resetSlice()
+      return
+    }
+
     if (metricId) {
       fetchSlice(metricId, slice_id)
     } else {

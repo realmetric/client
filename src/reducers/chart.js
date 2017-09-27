@@ -226,5 +226,13 @@ export const getChartData = (state) => {
     ? getChart(state, 'slice')
     : existy(metricId)
       ? getChart(state, 'metric')
-      : []
+      : {
+          series: [{
+            name: 'prev',
+            data: []
+          }, {
+            name: 'curr',
+            data: []
+          }]
+        }
 }
