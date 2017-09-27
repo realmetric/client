@@ -1,45 +1,37 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {Plot} from './Presentation'
-import * as actions from '../actions'
+import {Plot} from '../Presentation'
 import moment from 'moment'
 
-
-class HiChart extends Component {
+class ChartArea extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.ts === this.props.ts) return
     const {data: {series}} = this.props
     if (!series) return
-    const xs0 = series[0].data.reduce((xs, point) => [...xs, point[1]], [])
-    const xs1 = series[1].data.reduce((xs, point) => [...xs, point[1]], [])
-    const xs = [...xs0, ...xs1]
-    const max = Math.max(...xs)
+    // const xs0 = series[0].data.reduce((xs, point) => [...xs, point[1]], [])
+    // const xs1 = series[1].data.reduce((xs, point) => [...xs, point[1]], [])
+    // const xs = [...xs0, ...xs1]
+    // const max = Math.max(...xs)
+    // const min = Math.min(...xs)
 
     this.chart = window.Highcharts.chart('plot', {
       chart: {
-        type: 'column',
-        margin: [-1, -5, 21, 0],
+        type: 'area',
+        margin: [0, 0, 21, 0],
         zoomType: 'xy'
       },
       title: null,
       xAxis: {
         crosshair: true,
         type: 'datetime',
-        tickLength: 4,
-        startOnTick: true,
-        minPadding: 0,
-        endOnTick: true,
-        maxPadding: 0,
+        tickLength: 5,
+        minPadding: 0.0005,
+        maxPadding: 0.001,
         labels: {
           y: 15,
           formatter() {
-            if (this.isFirst || this.isLast) return ''
-            return moment.utc(this.value).format('HH:mm')
+            return moment.utc(this.value).format('MMM DD')
           }
-        },
-        plotLines:[{
-          value: (new Date()).getTime()-((new Date()).getTimezoneOffset()*60*1000)
-        }]
+        }
       },
       yAxis: {
         crosshair: false,
@@ -48,7 +40,7 @@ class HiChart extends Component {
         startOnTick: false,
         endOnTick: false,
         labels: {
-          enabled:false
+          enabled: false
         }
       },
       legend: {
@@ -70,27 +62,27 @@ class HiChart extends Component {
         shadow: false
       },
       plotOptions: {
-        column: {
-          grouping: false,
-          pointPadding: 0,
-          groupPadding: 0
+        area: {
+          marker: {
+            enabled: false,
+            radius: 2,
+            symbol: 'circle'
+          }
         },
         stickyTracking: false
       },
       series
     })
 
-    this.chart.yAxis[0].setExtremes(0, max)
+    // this.chart.yAxis[0].setExtremes(0, max)
   }
 
   render() {
     const {pending} = this.props
     return (
-      <Plot className={pending ? 'pending' : ''} id="plot" />
+      <Plot className={pending ? 'chart-area pending' : 'chart-area'} id="plot" />
     )
   }
 }
 
-const mapStateToProps = (state) => ({})
-
-export default connect(mapStateToProps, actions)(HiChart)
+export default ChartArea

@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import * as actions from '../actions'
 import ButtonGroup from './ButtonGroup'
-import styled, {css} from 'styled-components'
+import styled from 'styled-components'
 import {getMetricName, getSliceName} from '../reducers/chart'
 import {maxWidth} from '../constants'
 
@@ -13,33 +13,36 @@ const ToolbarSection = styled.section`
   background-color: hsla(216, 10%, 95%, 1);
   padding: 0 10px;
   display: flex;
-  box-shadow: 0 -1px 1px 1px hsla(208, 25%, 1%, 0.55);
+  /*box-shadow: 0 -1px 1px 1px hsla(208, 25%, 1%, 0.55);*/
+  border-bottom: 1px solid hsla(208, 25%, 83%, 1);
   z-index: 10;
+
+  > h1, > h2 {
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.25px;
+    line-height: 1;
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    align-self: stretch;
+
+    color: hsl(218, 14%, 21%);
+    background: hsl(220, 12%, 88%);
+    margin: 0 0 0 -10px;
+  }
+
+  > h2 {
+    color: hsl(218, 14%, 21%);
+    background: hsl(216, 15%, 92%);
+    margin: 0;
+  }
+
   @media (max-width: ${maxWidth}) {
     & {
       display: none;
     }
   }
-`
-const Title = styled.h1`
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0.25px;
-  line-height: 1;
-  padding: 0 10px;
-  display: flex;
-  align-items: center;
-  align-self: stretch;
-`
-const MetricName = Title.extend`
-  color: hsla(220, 13%, 32%, 1);
-  background: hsla(220, 12%, 86%, 1);
-  margin: 0 0 0 -10px;
-`
-const SliceName = Title.extend`
-  color: hsla(220, 13%, 35%, 1);
-  background: hsla(216, 15%, 91%, 1);
-  margin: 0;
 `
 
 class Toolbar extends Component {
@@ -48,8 +51,8 @@ class Toolbar extends Component {
 
     return (
       <ToolbarSection>
-        {metricName && <MetricName>{metricName}</MetricName>}
-        {sliceName && <SliceName>{sliceName}</SliceName>}
+        {metricName && <h1>{metricName}</h1>}
+        {sliceName && <h2>{sliceName}</h2>}
         <ButtonGroup
           value={this.props.period}
           buttons={[

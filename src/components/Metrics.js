@@ -11,17 +11,26 @@ class Metrics extends Component {
     this.props.fetchMetrics()
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.period !== this.props.period) {
+      this.props.fetchMetric(this.props.metricId)
+    }
+  }
+
   onMetricClick = (metric_id) => {
-    const {metricId, sliceId, fetchSlice, fetchMetric, fetchMetrics, resetChart, resetMetric, resetSlice} = this.props
-    if (metric_id && sliceId)  {
-      // console.log('metric_id, metricId', metric_id, metricId)
+    const {
+      metricId, sliceId, fetchSlice, fetchMetrics,
+      fetchMetric, resetChart, resetMetric, resetSlice
+    } = this.props
+
+    if (metric_id && sliceId) {
       if (metric_id === metricId) {
         resetMetric()
         resetSlice()
         resetChart()
         fetchMetrics()
       } else {
-        fetchSlice({metric_id, slice_id: sliceId})
+        fetchSlice(metric_id, sliceId)
       }
     } else {
       fetchMetric(metric_id)
@@ -98,6 +107,8 @@ class Metrics extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  period: state.chart.period,
+  intervalType: state.chart.intervalType,
   pending: state.metrics.pending,
   popularCats: state.metrics.popularCats,
   metrics: getMetricsList(state)

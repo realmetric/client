@@ -14,15 +14,15 @@ const creds = (api) => {
 
 const fetchMetric = (action$, store) =>
   action$.ofType('METRIC_REQUEST')
-    .switchMap(({id}) =>
+    .switchMap(({intervalType, metricId, from, to, prevFrom, prevTo}) =>
       ajax({
-        url: api.metric(store.getState().api, id),
+        url: api.metricValues(store.getState().api, intervalType, metricId, from, to, prevFrom, prevTo),
         responseType: 'json',
         headers: {
           Authorization: 'Basic ' + creds(store.getState().api)
         }
       })
-      .map(({response}) => ({type: 'METRIC_SUCCESS', response}))
+      .map(({response}) => ({type: 'METRIC_SUCCESS', intervalType, response}))
       .catch(error => Observable.of({type: 'METRIC_ERROR', error: error.xhr.response}))
     )
 
@@ -56,17 +56,15 @@ const fetchSlices = (action$, store) =>
 
 const fetchSlice = (action$, store) =>
   action$.ofType('SLICE_REQUEST')
-    .switchMap(({metric_id, slice_id, interval = 'm', from, to}) =>
+    .switchMap(({intervalType, metric_id, slice_id, from, to, prevFrom, prevTo}) =>
       ajax({
-        url: interval === 'm'
-          ? api.sliceMinutesValues(store.getState().api, metric_id, slice_id, from, to)
-          : api.sliceDaysValues(store.getState().api, metric_id, slice_id, from, to),
+        url: api.sliceValues(store.getState().api, intervalType, metric_id, slice_id, from, to, prevFrom, prevTo),
         responseType: 'json',
         headers: {
           Authorization: 'Basic ' + creds(store.getState().api)
         }
       })
-      .map(({response}) => ({type: 'SLICE_SUCCESS', response}))
+      .map(({response}) => ({type: 'SLICE_SUCCESS', intervalType, response}))
       .catch(error => Observable.of({type: 'SLICE_ERROR', error: error.xhr.response}))
     )
 

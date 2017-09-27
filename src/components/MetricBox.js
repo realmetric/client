@@ -7,7 +7,7 @@ class MetricBox extends Component {
   }
 
   render() {
-    const {category, name, total, diff, active, onClick} = this.props
+    const {name, total, diff, active, onClick} = this.props
 
     return (
       <Metric

@@ -1,10 +1,9 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {isChartPending, getChartData} from '../reducers/chart'
-// import CanvasChart from './CanvasChart'
-// import Plotly from './Plotly'
-import Highcharts from './Highcharts'
-import Spinner from './Spinner'
+import {isChartPending, getChartData} from '../../reducers/chart'
+import ChartArea from './ChartArea'
+import ChartColumns from './ChartColumns'
+import Spinner from '../Spinner'
 import styled from 'styled-components'
 
 const ChartSection = styled.section`
@@ -17,13 +16,19 @@ const ChartSection = styled.section`
 
 class Chart extends Component {
   render() {
-    const {data, pending, ts} = this.props
-
-    // console.log('data', data)
+    const {data, period, pending, ts} = this.props
 
     return (
       <ChartSection>
-        <Highcharts data={data} pending={pending} ts={ts} />
+        {period === '1D' &&
+          <ChartColumns data={data} pending={pending} ts={ts} />
+        }
+        {(period === '1W' ||
+          period === '1M' ||
+          period === '6M'
+          ) &&
+          <ChartArea data={data} pending={pending} ts={ts} />
+        }
         {pending && <Spinner col="#f00" />}
       </ChartSection>
     )
@@ -31,6 +36,7 @@ class Chart extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  period: state.chart.period,
   data: getChartData(state),
   pending: isChartPending(state),
   ts: state.chart.ts

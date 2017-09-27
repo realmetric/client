@@ -11,7 +11,7 @@ export const Section = styled.section`
   background: #eceff3;
   overflow: hidden;
   & + & {
-    border-left: 1px solid #bfcdd9;
+    border-left: 1px solid hsla(208, 25%, 83%, 1);
   }
   > .react-tabs {
     margin: 5px 25px 0 25px;
@@ -20,7 +20,7 @@ export const Section = styled.section`
   @media (max-width: ${maxWidth}) {
     & + & {
       border-left: none;
-      border-top: 1px solid #bfcdd9;
+      border-top: 1px solid hsla(208, 25%, 83%, 1);
     }
   }
 `
@@ -149,14 +149,14 @@ export const Head = styled.header`
 export const Nav = styled.nav`
   width: 135px;
   display: flex;
-  border-left: 1px solid #bfcdd9;
-  border-right: 1px solid #bfcdd9;
+  border-left: 1px solid hsla(208, 25%, 83%, 1);
+  border-right: 1px solid hsla(208, 25%, 83%, 1);
 
   .popularItems {
     flex: initial;
     padding-bottom: 7px;
     margin-bottom: 3px;
-    border-bottom: 1px solid #bfcdd9;
+    border-bottom: 1px solid hsla(208, 25%, 83%, 1);
   }
 
   ul {

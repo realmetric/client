@@ -20,7 +20,7 @@ const Reports = styled.div`
   display: flex;
   flex: 0 0 65%;
   max-height: 65%;
-  border-top: 1px solid #bfcdd9;
+  border-top: 1px solid hsl(208, 25%, 83%);
 
   @media (max-width: ${maxWidth}) {
     & {

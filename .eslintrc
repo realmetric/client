@@ -1,0 +1,33 @@
+{
+  "parser"  : "babel-eslint",
+  "extends": ["standard", "standard-react"],
+  "env": {
+    "browser" : true
+  },
+  "globals": {
+  },
+  "plugins": [
+    "promise"
+  ],
+  "rules": {
+  	"indent": 0,
+    "semi": [2, "never"],
+    "camelcase": 0,
+    "curly": 0,
+    "padded-blocks": 0,
+    "no-multiple-empty-lines": [2, {"max": 2, "maxEOF": 1}],
+    "no-multi-str": 0,
+    "no-sequences": 0,
+    "no-return-assign": 1,
+    "no-trailing-spaces": 0,
+    "operator-linebreak": 0,
+    "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
+    "jsx-quotes": [2, "prefer-double"],
+    "react/prop-types": [0, {"ignore": [], "customValidators": []}],
+    "react/jsx-indent": 0,
+    "react/jsx-indent-props": 0,
+    "react/jsx-no-bind": 1,
+    "promise/param-names": 2,
+    "promise/catch-or-return": 2,
+  }
+}

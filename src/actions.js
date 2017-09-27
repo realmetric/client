@@ -1,4 +1,6 @@
-export const setApi = (api) =>  ({type: 'API', api})
+import moment from 'moment'
+
+export const setApi = (api) => ({type: 'API', api})
 
 export const resetMetric = () => ({type: 'METRIC_RESET'})
 
@@ -6,21 +8,67 @@ export const resetSlice = () => ({type: 'SLICE_RESET'})
 
 export const resetChart = () => ({type: 'CHART_RESET'})
 
-export const fetchMetric = (id) => (dispatch, getState) => {
-  if (getState().chart.metricId === id) {
+const action4Period = (action, period) => {
+  switch (period) {
+    case '1D':
+      return action
+
+    case '1W':
+      return {
+        ...action,
+        from: moment().startOf('isoweek').format('YYYY-MM-DD HH:mm:ss'),
+        to: moment().format('YYYY-MM-DD HH:mm:ss'),
+        prevFrom: moment().startOf('isoweek').subtract(1, 'week').format('YYYY-MM-DD HH:mm:ss'),
+        prevTo: moment().endOf('isoweek').subtract(1, 'week').format('YYYY-MM-DD HH:mm:ss')
+      }
+
+    case '1M':
+      return {
+        ...action,
+        from: moment().startOf('month').format('YYYY-MM-DD HH:mm:ss'),
+        to: moment().format('YYYY-MM-DD HH:mm:ss'),
+        prevFrom: moment().startOf('month').subtract(1, 'month').format('YYYY-MM-DD HH:mm:ss'),
+        prevTo: moment().endOf('month').subtract(1, 'month').format('YYYY-MM-DD HH:mm:ss')
+      }
+
+    case '6M':
+      return {
+        ...action,
+        from: moment().subtract(6, 'month').format('YYYY-MM-DD HH:mm:ss'),
+        to: moment().format('YYYY-MM-DD HH:mm:ss'),
+        prevFrom: moment().subtract(12, 'month').format('YYYY-MM-DD HH:mm:ss'),
+        prevTo: moment().endOf('month').subtract(6, 'month').format('YYYY-MM-DD HH:mm:ss')
+      }
+
+    default:
+      return action
+  }
+}
+
+export const fetchMetric = (metricId) => (dispatch, getState) => {
+  const {period, intervalType} = getState().chart
+  const action = {type: 'METRIC_REQUEST', intervalType, metricId}
+  if (getState().chart.metricId === metricId) {
     dispatch(resetMetric())
     dispatch(resetSlice())
   } else {
-    dispatch({type: 'METRIC_REQUEST', id})
+    dispatch(action4Period(action, period))
+  }
+}
+
+export const fetchSlice = (metric_id, slice_id) => (dispatch, getState) => {
+  const {period, intervalType} = getState().chart
+  const action = {type: 'SLICE_REQUEST', intervalType, metric_id, slice_id}
+  if (getState().chart.sliceId === slice_id) {
+    dispatch(resetSlice())
+  } else {
+    dispatch(action4Period(action, period))
   }
 }
 
 export const fetchMetrics = ({slice_id} = {}) => ({type: 'METRICS_REQUEST', slice_id})
 
 export const fetchSlices = (metricId) => ({type: 'SLICES_REQUEST', metricId})
-
-export const fetchSlice = ({metric_id, slice_id, interval = 'm', from, to}) =>
-  ({type: 'SLICE_REQUEST', metric_id, slice_id, interval, from, to})
 
 export const loadInitialData = () => ({type: 'LOAD_INITIAL_DATA'})
 

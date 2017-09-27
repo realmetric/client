@@ -15,12 +15,16 @@ class Slices extends Component {
     if (prevProps.metricId !== this.props.metricId) {
       setTimeout(() => this.props.fetchSlices(this.props.metricId), 100)
     }
+
+    if (prevProps.period !== this.props.period) {
+      this.props.fetchSlice(this.props.metricId, this.props.sliceId)
+    }
   }
 
   onSliceClick = (slice_id) => {
-    const {metricId, fetchSlice, fetchMetrics} = this.props
-    if (metricId)  {
-      fetchSlice({metric_id: metricId, slice_id})
+    const {metricId, fetchMetrics, fetchSlice} = this.props
+    if (metricId) {
+      fetchSlice(metricId, slice_id)
     } else {
       fetchMetrics({slice_id})
     }
@@ -75,6 +79,8 @@ class Slices extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  period: state.chart.period,
+  intervalType: state.chart.intervalType,
   slices: getSlicesList(state),
   pending: state.slices.pending
 })

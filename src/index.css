@@ -21,8 +21,18 @@ input:-webkit-autofill {
     transition: background-color 5000s ease-in-out 0s;
 }
 
+/* ========================================================== */
+
 .highcharts-credits {
     display: none;
+}
+.highcharts-color-1 {
+    stroke: rgba(154, 162, 172, 1);
+    fill: rgba(154, 162, 172, 1);
+}
+.highcharts-color-2 {
+    stroke: rgba(0, 79, 168, 1);
+    fill: rgba(0, 79, 168, 1);
 }
 .highcharts-column-series.yesterday rect.highcharts-point {
     stroke: hsla(210, 10%, 81%, 1);
@@ -70,6 +80,35 @@ input:-webkit-autofill {
     stroke-width: 1px;
     stroke: #aaa;
 }
-.highcharts-yaxis-grid .highcharts-grid-line {
-    display: none;
+
+
+.chart-categories .highcharts-column-series.prev rect.highcharts-point {
+    stroke: hsla(210, 10%, 70%, 1);
+    fill: rgba(154, 162, 172, 0.5);
+}
+.chart-categories .highcharts-column-series.curr rect.highcharts-point {
+    stroke: hsla(212, 49%, 56%, 1);
+    fill: rgba(0, 79, 168, 0.55);
+}
+.chart-categories .highcharts-plot-band {
+    fill: #FCFFC5;
+    fill-opacity: 0.75;
+}
+
+
+.highcharts-column-series.prevArea rect.highcharts-point {
+    stroke: hsla(213, 14%, 70%, 1);
+    fill: hsla(216, 15%, 68%, 0.77);
+}
+.prevArea.highcharts-color-0, .prevArea .highcharts-halo.highcharts-color-0 {
+    stroke: hsla(213, 14%, 70%, 1);
+    fill: hsla(216, 15%, 68%, 0.77);
+}
+.highcharts-column-series.currArea rect.highcharts-point {
+    stroke: hsla(212, 49%, 60%, 1);
+    fill: hsla(212, 100%, 33%, 0.53);
+}
+.currArea.highcharts-color-1, .currArea .highcharts-halo.highcharts-color-1 {
+    stroke: hsla(212, 49%, 50%, 1);
+    fill: hsla(212, 100%, 33%, 0.88);
 }
