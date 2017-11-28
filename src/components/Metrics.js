@@ -44,13 +44,13 @@ class Metrics extends Component {
     e.preventDefault()
     const category = e.target.href.match(/(#.*)$/)[1].slice(1)
     this.props.categoryClick(category)
-    document.querySelector('#_' + category).scrollIntoView({behavior: 'smooth'})
+    document.querySelector('#_' + category).scrollIntoView({behavior: 'smooth', block: 'start'})
   }
 
   handlePopularItmClick = (e) => {
     e.preventDefault()
     const category = e.target.href.match(/(#.*)$/)[1].slice(1)
-    document.querySelector('#_' + category).scrollIntoView({behavior: 'smooth'})
+    document.querySelector('#_' + category).scrollIntoView({behavior: 'smooth', block: 'start'})
   }
 
   renderPopularCats() {

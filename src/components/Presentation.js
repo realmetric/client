@@ -205,6 +205,7 @@ export const Label = styled.label`
 export const HBox = styled.div`
   display: flex;
   flex: 1;
+  overflow: hidden;
   @media (max-width: ${maxWidth}) {
     &.slices {
       flex-direction: row-reverse;

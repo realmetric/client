@@ -42,7 +42,7 @@ class Slices extends Component {
     e.preventDefault()
     const category = e.target.href.match(/(#.*)$/)[1].slice(1)
     document.querySelector('#_' + category).scrollIntoView({
-      behavior: 'smooth'
+      behavior: 'smooth', block: 'start'
     })
   }
 
