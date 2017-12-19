@@ -5,6 +5,7 @@ import {getSlicesList} from '../reducers/slices'
 import Spinner from './Spinner'
 import {Section, Categories, Nav, NoData, HBox} from './Presentation'
 import Category from './Category'
+import {existy} from '../utils'
 
 class Slices extends Component {
   componentDidMount() {
@@ -17,15 +18,16 @@ class Slices extends Component {
     }
 
     if (prevProps.period !== this.props.period) {
-      this.props.fetchSlice(this.props.metricId, this.props.sliceId)
+      if (existy(this.props.sliceId)) this.props.fetchSlice(this.props.metricId, this.props.sliceId)
     }
   }
 
   onSliceClick = (slice_id) => {
-    const {metricId, sliceId, fetchMetrics, fetchSlice, resetSlice} = this.props
+    const {metricId, sliceId, fetchMetrics, fetchMetric, fetchSlice, resetSlice} = this.props
 
     if (slice_id === sliceId) {
       resetSlice()
+      fetchMetric(metricId)
       return
     }
 

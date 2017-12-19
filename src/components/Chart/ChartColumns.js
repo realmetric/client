@@ -82,9 +82,9 @@ class ChartColumns extends Component {
   }
 
   render() {
-    const {pending} = this.props
+    const {pending, animation} = this.props
     return (
-      <Plot className={pending ? 'chart-columns pending' : 'chart-columns'} id="plot" />
+      <Plot className={(pending && animation) ? 'chart-columns pending' : 'chart-columns'} id="plot" />
     )
   }
 }

@@ -7,15 +7,16 @@ function chart(state = {
   metricId: null,
   sliceId: null,
   intervalType: 'minutes',
-  period: '1D'
+  period: '1D',
+  animation: true
 }, action) {
 
   switch (action.type) {
     case 'METRIC_REQUEST':
-      return {...state, metricId: action.metricId}
+      return {...state, metricId: action.metricId, animation: action.animation}
 
     case 'SLICE_REQUEST':
-      return {...state, metricId: action.metric_id, sliceId: action.slice_id}
+      return {...state, metricId: action.metric_id, sliceId: action.slice_id, animation: action.animation}
 
     case 'METRICS_REQUEST':
       return {...state, sliceId: action.slice_id}
@@ -103,16 +104,12 @@ export const getChart = (state, kind = 'metric') => {
         name: 'yesterday',
         className: 'yesterday',
         data: dataPointsYesterday,
-        animation: {
-          duration: 200
-        }
+        animation: chart.animation ? {duration: 200} : false
       }, {
         name: 'today',
         className: 'today',
         data: dataPointsToday,
-        animation: {
-          duration: 200
-        }
+        animation: chart.animation ? {duration: 200} : false
       }]
 
       return {series}

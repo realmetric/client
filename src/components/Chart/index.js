@@ -16,20 +16,20 @@ const ChartSection = styled.section`
 
 class Chart extends Component {
   render() {
-    const {data, period, pending, ts} = this.props
+    const {data, period, pending, animation, ts} = this.props
 
     return (
       <ChartSection>
         {period === '1D' &&
-          <ChartColumns data={data} pending={pending} ts={ts} />
+          <ChartColumns data={data} pending={pending} animation={animation} ts={ts} />
         }
         {(period === '1W' ||
           period === '1M' ||
           period === '6M'
           ) &&
-          <ChartArea data={data} pending={pending} ts={ts} />
+          <ChartArea data={data} pending={pending} animation={animation} ts={ts} />
         }
-        {pending && <Spinner col="#f00" />}
+        {(pending && animation) && <Spinner col="#f00" />}
       </ChartSection>
     )
   }
@@ -39,6 +39,7 @@ const mapStateToProps = (state) => ({
   period: state.chart.period,
   data: getChartData(state),
   pending: isChartPending(state),
+  animation: state.chart.animation,
   ts: state.chart.ts
 })
 

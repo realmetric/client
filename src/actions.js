@@ -1,10 +1,34 @@
 import moment from 'moment'
 
+const timeout = 15000
+let metricIdTimeout = {}
+let sliceIdTimeout = {}
+
 export const setApi = (api) => ({type: 'API', api})
 
-export const resetMetric = () => ({type: 'METRIC_RESET'})
+export const resetMetric = () => {
+  Object.keys(metricIdTimeout).forEach(id => {
+    clearTimeout(metricIdTimeout[id])
+    delete metricIdTimeout[id]
+  })
+  Object.keys(sliceIdTimeout).forEach(id => {
+    clearTimeout(sliceIdTimeout[id])
+    delete sliceIdTimeout[id]
+  })
+  return {type: 'METRIC_RESET'}
+}
 
-export const resetSlice = () => ({type: 'SLICE_RESET'})
+export const resetSlice = () => {
+  Object.keys(metricIdTimeout).forEach(id => {
+    clearTimeout(metricIdTimeout[id])
+    delete metricIdTimeout[id]
+  })
+  Object.keys(sliceIdTimeout).forEach(id => {
+    clearTimeout(sliceIdTimeout[id])
+    delete sliceIdTimeout[id]
+  })
+  return {type: 'SLICE_RESET'}
+}
 
 export const resetChart = () => ({type: 'CHART_RESET'})
 
@@ -45,16 +69,48 @@ const action4Period = (action, period) => {
   }
 }
 
-export const fetchMetric = (metricId) => (dispatch, getState) => {
-  const {period, intervalType} = getState().chart
-  const action = {type: 'METRIC_REQUEST', intervalType, metricId}
-  dispatch(action4Period(action, period))
+export function fetchMetric(metricId, firstFetch = true) {
+  Object.keys(metricIdTimeout).forEach(id => {
+    clearTimeout(metricIdTimeout[id])
+    delete metricIdTimeout[id]
+  })
+
+  return (dispatch, getState) => {
+    const {period, intervalType} = getState().chart
+    const action = {type: 'METRIC_REQUEST', intervalType, metricId, animation: firstFetch}
+    dispatch(action4Period(action, period))
+
+    if (period === '1D') {
+      metricIdTimeout[metricId] =
+        setTimeout(() => {
+          dispatch(fetchMetric(metricId, false))
+        }, timeout)
+    }
+  }
 }
 
-export const fetchSlice = (metric_id, slice_id) => (dispatch, getState) => {
-  const {period, intervalType} = getState().chart
-  const action = {type: 'SLICE_REQUEST', intervalType, metric_id, slice_id}
-  dispatch(action4Period(action, period))
+export function fetchSlice(metric_id, slice_id, firstFetch = true) {
+  Object.keys(metricIdTimeout).forEach(id => {
+    clearTimeout(metricIdTimeout[id])
+    delete metricIdTimeout[id]
+  })
+  Object.keys(sliceIdTimeout).forEach(id => {
+    clearTimeout(sliceIdTimeout[id])
+    delete sliceIdTimeout[id]
+  })
+
+  return (dispatch, getState) => {
+    const {period, intervalType} = getState().chart
+    const action = {type: 'SLICE_REQUEST', intervalType, metric_id, slice_id, animation: firstFetch}
+    dispatch(action4Period(action, period))
+
+    if (period === '1D') {
+      sliceIdTimeout[slice_id] =
+        setTimeout(() => {
+          dispatch(fetchSlice(metric_id, slice_id, false))
+        }, timeout)
+    }
+  }
 }
 
 export const fetchMetrics = ({slice_id} = {}) => ({type: 'METRICS_REQUEST', slice_id})
